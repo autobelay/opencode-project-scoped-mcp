@@ -8,7 +8,7 @@ This release targets OpenCode **1.19.4**. OpenCode's [v2 plugin API](https://ope
 
 ## Install
 
-The intended release is a GitHub-hosted npm tarball. This command is **provisional until the v0.1.0 release asset and installation have been checked**:
+Install the GitHub release globally using OpenCode’s native plugin installer:
 
 ```sh
 opencode plugin --global https://github.com/autobelay/opencode-project-scoped-mcp/releases/download/v0.1.0/autobelay-opencode-project-scoped-mcp-0.1.0.tgz
@@ -33,7 +33,7 @@ This plugin uses OpenCode's [plugin `config` hook](https://docs.opencode.ai/docs
 
 ## Example: a design assistant for one application
 
-Imagine a fictional field-notes application. Its design MCP could know the current checkout's palette, spacing, component variants, unpublished screen references, and navigation conventions. Its tools might read design tokens or explain the layout of a component. Keeping the server in the checkout lets it read the exact branch being edited. The server may still use a remote service for specific operations; local execution does not imply offline operation.
+Imagine a fictional field-notes application. Its design MCP could know the current checkout's palette, spacing, component variants, unpublished screen references, and navigation conventions. Its tools might read design tokens or explain the layout of a component. These assets and conventions belong to one application; publishing a generic public MCP would not supply them. Hosting this server remotely would require uploading or synchronizing unpublished branch-specific files. Keeping the server in the checkout lets it read the exact branch being edited. The server may still use a remote service for specific operations; local execution does not imply offline operation.
 
 The runnable [design-studio example](examples/design-studio) is smaller. Its read-only tool returns fictional design tokens. It requires no account, credentials, cloud service, or company material:
 
@@ -82,5 +82,7 @@ Manifest `title` and `description` can provide optional model guidance through O
 ## Distribution and development
 
 This is an independent open-source OpenCode plugin. See [distribution details](MARKETPLACE.md) and [local exercise notes](TESTING.md). It is not listed in an official OpenCode marketplace.
+
+The installation above was exercised with OpenCode 1.19.4 on macOS. It adds only the plugin entry to global configuration; project MCP declarations are read at runtime. The same command can be used after a machine rebuild.
 
 The package exposes `dist/plugin.js` as its server entrypoint and has no runtime npm dependencies. The code is MIT licensed. [Third-party notices](THIRD_PARTY_NOTICES) accompany the bundled fictional example.

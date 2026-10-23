@@ -2,7 +2,7 @@
 
 This repository distributes an independent OpenCode plugin. It is not an official OpenCode marketplace listing and is not affiliated with OpenCode or Anomaly.
 
-For OpenCode 1.19.4, the plugin is a package whose `main` and `exports["./server"]` point to `dist/plugin.js`. The global `opencode plugin <module> -g` command installs a package and adds it to the user's global OpenCode configuration. The intended v0.1.0 release asset is `autobelay-opencode-project-scoped-mcp-0.1.0.tgz`; the URL and command below remain provisional until that release asset is published and exercised:
+For OpenCode 1.19.4, the plugin is a package whose `main` and `exports["./server"]` point to `dist/plugin.js`. The global `opencode plugin <module> -g` command installs a package and adds it to the user's global OpenCode configuration. The v0.1.0 GitHub release tarball is `autobelay-opencode-project-scoped-mcp-0.1.0.tgz`. This command was successfully exercised with OpenCode 1.19.4:
 
 ```sh
 opencode plugin --global https://github.com/autobelay/opencode-project-scoped-mcp/releases/download/v0.1.0/autobelay-opencode-project-scoped-mcp-0.1.0.tgz
