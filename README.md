@@ -69,7 +69,9 @@ Place `mcp.json` in a checkout. The plugin walks upward from the OpenCode projec
 }
 ```
 
-The remote URL is illustrative. The supported manifest transports are `stdio`, `streamable-http`, and `sse`. For local servers, `command` and `args` become OpenCode's command array, `env` becomes `environment`, and OpenCode launches the process with the manifest directory as `cwd`. For remote servers, the plugin passes the URL and headers to OpenCode, which attempts Streamable HTTP and then SSE. Optional timeouts are passed to OpenCode's native MCP connection.
+The remote URL is illustrative. The supported manifest transports are `stdio`, `streamable-http`, and `sse`. For local servers, `command` and `args` become OpenCode's command array, `env` becomes `environment`, and OpenCode launches the process with the manifest directory as `cwd`. For remote servers, the plugin passes the URL and headers to OpenCode, which attempts Streamable HTTP and then SSE. Generated connections use a 30-second request timeout; a native OpenCode entry can override it.
+
+The manifest follows a practical subset of the evolving [SEP-2633 client configuration proposal](https://github.com/modelcontextprotocol/modelcontextprotocol/issues/2633), not a finalized universal standard. OAuth fields supported here are `clientId`, `scopes` (joined into OpenCode's scope string), and `redirectUri`. Native-only OAuth options can be configured in OpenCode's override entry.
 
 The plugin expands `${env:NAME}` references from the OpenCode process environment in manifest values. It does not read `.env` files. Do not commit credentials to a manifest. For remote servers, OpenCode can manage OAuth using the manifest's OAuth client settings, or use a configured bearer token in headers. The project must supply any runtime and credentials its servers need.
 

@@ -80,7 +80,7 @@ export async function loadProject(directory) {
 export function applyProject(config, project, env = process.env) {
   const records = [];
   if (!Object.keys(project.servers).length) return records;
-  config.mcp ??= {};
+  config.mcp = { ...(config.mcp ?? {}) };
   for (const [name, s] of Object.entries(project.servers)) {
     const id = serverId(name, project.root);
     if (Object.hasOwn(config.mcp, name)) {

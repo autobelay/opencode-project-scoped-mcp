@@ -235,3 +235,11 @@ test("malformed manifests report an error without echoing the file contents", as
   assert.ok(!result.includes("synthetic-secret"));
   assert.deepEqual(config, {});
 });
+
+test('projection does not mutate an MCP map shared with another workspace',()=>{
+ const shared={personal:{type:'remote',url:'https://personal.test'}};
+ const first={mcp:shared}, second={mcp:shared};
+ applyProject(first,{root:'/first',servers:{design:{type:'stdio',command:'node'}}});
+ assert.deepEqual(Object.keys(second.mcp),['personal']);
+ assert.notEqual(first.mcp,second.mcp);
+});
