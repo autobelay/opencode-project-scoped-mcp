@@ -1,0 +1,14 @@
+{
+  "name": "@autobelay/opencode-project-scoped-mcp",
+  "version": "0.1.0",
+  "description": "Load the active project's mcp.json as native OpenCode MCP connections.",
+  "type": "module",
+  "main": "./dist/plugin.js",
+  "exports": {".": "./dist/plugin.js", "./server": "./dist/plugin.js"},
+  "files": ["dist/plugin.js", "README.md", "LICENSE"],
+  "license": "MIT",
+  "repository": {"type": "git", "url": "https://github.com/autobelay/opencode-project-scoped-mcp.git"},
+  "scripts": {"build": "node scripts/build.mjs", "test": "node --test test/*.test.mjs"},
+  "engines": {"node": ">=22"},
+  "devDependencies": {"esbuild": "0.28.2", "@modelcontextprotocol/sdk": "1.32.1"}
+}
