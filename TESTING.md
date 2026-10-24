@@ -1,6 +1,20 @@
 # Tested behavior
 
-The v0.1.1 branding update changes the package description and the custom status tool's UI title. Its GitHub release and live installation have not yet been exercised. The observations below are from v0.1.0.
+## v0.1.1 branding release
+
+On 2026-10-24, `npm run build` and `npm test` completed successfully with nine synthetic tests. The packed tarball contains the bundled plugin, package metadata, README, and license. The [v0.1.1 release](https://github.com/autobelay/opencode-project-scoped-mcp/releases/tag/v0.1.1) provides that tarball and a standalone `plugin.js` asset.
+
+OpenCode 1.19.4 installed the release using its native `opencode plugin --global --force <tarball URL>` command. The installer added the new URL beside v0.1.0 because it treats versioned tarball URLs as different package specs. The stale v0.1.0 plugin entry was removed from global configuration; one project plugin entry remains, and the other global plugin entries were preserved.
+
+A read-only `opencode run --format json --dir examples/design-studio` session requested only `project_mcp_status` and `read_design_tokens`. Its structured events recorded:
+
+- `project_mcp_status` completed with `state.title` equal to `Local Project MCP · Status`, version `0.1.1`, and the example's `project-design` server connected.
+- The native `read_design_tokens` call completed and returned fictional Field Notes tokens.
+- No tool error states occurred.
+
+The native MCP call retained its technical tool ID and an empty `state.title`, consistent with OpenCode 1.19.4's tool path. The custom status tool's title was verified in structured events; no rendered terminal UI claim is made here. The raw example log remains local in `/tmp` and is not published.
+
+## v0.1.0 history
 
 Release **v0.1.0** was installed globally from its public GitHub tarball using **OpenCode 1.19.4** on **macOS**, on 2026-10-23. Build/test tooling used **Node.js 24.22.0**. The live model runs used the existing OpenCode provider configuration.
 

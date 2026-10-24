@@ -23,7 +23,7 @@ cd /path/to/project
 opencode
 ```
 
-Ask: “Use `project_mcp_status` to show this project's MCP connections.” Its result appears as “Local Project MCP · Status.” Native MCP tools are available separately under their generated server IDs. OpenCode 1.19.4 displays those tools using their technical IDs; this plugin cannot relabel their UI titles through its supported hooks. No project path is stored in the global installation.
+Ask: “Use `project_mcp_status` to show this project's MCP connections.” The tool returns the title “Local Project MCP · Status,” which OpenCode records in its structured tool event. Native MCP tools are available separately under their generated server IDs. OpenCode 1.19.4 uses those technical IDs for native tool calls; this plugin cannot relabel their titles through its supported hooks. No project path is stored in the global installation.
 
 ## Why project-scoped tools?
 
