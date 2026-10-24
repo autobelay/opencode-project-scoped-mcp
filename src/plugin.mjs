@@ -1,7 +1,7 @@
 import { loadProject, applyProject, VERSION } from "./project.mjs";
 
 // A single plugin export. No runtime dependencies, process spawning or config writes.
-export default async function ProjectScopedMcp({ directory, client }) {
+export default async function LocalProjectMcp({ directory, client }) {
   let project = { manifest: null, root: null, servers: {} },
     records = [],
     error;
@@ -20,7 +20,7 @@ export default async function ProjectScopedMcp({ directory, client }) {
     tool: {
       project_mcp_status: {
         description:
-          "Report the discovered project mcp.json and its native OpenCode MCP connection states. Does not return credentials, launch arguments or raw connection errors.",
+          "Local Project MCP: report the nearest project mcp.json and its native local and remote OpenCode MCP connection states. Does not return credentials, launch arguments or raw connection errors.",
         args: {},
         execute: async () => {
           let states = {},
@@ -32,29 +32,32 @@ export default async function ProjectScopedMcp({ directory, client }) {
           } catch {
             statusError = "Native MCP status is temporarily unavailable.";
           }
-          return JSON.stringify({
-            version: VERSION,
-            manifest: project.manifest,
-            projectRoot: project.root,
-            ...(error ? { error } : {}),
-            ...(statusError ? { statusError } : {}),
-            servers: records.map((r) => ({
-              name: r.name,
-              runtimeId: r.runtimeId,
-              source: r.source,
-              status: r.error
-                ? "invalid"
-                : (states[r.runtimeId]?.status ?? "unknown"),
-              ...(r.error ? { error: r.error } : {}),
-            })),
-          });
+          return {
+            title: "Local Project MCP · Status",
+            output: JSON.stringify({
+              version: VERSION,
+              manifest: project.manifest,
+              projectRoot: project.root,
+              ...(error ? { error } : {}),
+              ...(statusError ? { statusError } : {}),
+              servers: records.map((r) => ({
+                name: r.name,
+                runtimeId: r.runtimeId,
+                source: r.source,
+                status: r.error
+                  ? "invalid"
+                  : (states[r.runtimeId]?.status ?? "unknown"),
+                ...(r.error ? { error: r.error } : {}),
+              })),
+            }),
+          };
         },
       },
     },
     "experimental.chat.system.transform": async (_input, output) => {
       if (!records.length) return;
       const lines = [
-        "Project MCP connection descriptions (from this project’s manifest):",
+        "Local Project MCP: connection descriptions from this project's mcp.json:",
       ];
       for (const r of records)
         if (!r.error)

@@ -1,7 +1,7 @@
 {
   "name": "@autobelay/opencode-project-scoped-mcp",
-  "version": "0.1.0",
-  "description": "Load the active project's mcp.json as native OpenCode MCP connections.",
+  "version": "0.1.1",
+  "description": "Local Project MCP automatically loads the nearest project mcp.json as native local and remote OpenCode MCP connections for that project, with no wrapper or config sync.",
   "type": "module",
   "main": "./dist/plugin.js",
   "exports": {".": "./dist/plugin.js", "./server": "./dist/plugin.js"},

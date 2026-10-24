@@ -186,9 +186,10 @@ test("bundled plugin status exposes no credentials or native errors and calls co
   });
   const config = {};
   await hooks.config(config);
-  const text = await hooks.tool.project_mcp_status.execute({});
-  assert.ok(!text.includes("synthetic-secret"));
-  const status = JSON.parse(text);
+  const result = await hooks.tool.project_mcp_status.execute({});
+  assert.equal(result.title, "Local Project MCP · Status");
+  assert.ok(!result.output.includes("synthetic-secret"));
+  const status = JSON.parse(result.output);
   assert.equal(status.servers[0].status, "failed");
   assert.deepEqual(query, { directory: p });
   assert.equal(config.mcp[serverId("design", p)].cwd, p);
@@ -217,7 +218,7 @@ test("independent project instances and no-manifest sessions do not share server
   assert.ok(ca.mcp[serverId("design", a)]);
   assert.deepEqual(cb, { mcp: { personal: { enabled: false } } });
   assert.equal(
-    JSON.parse(await hb.tool.project_mcp_status.execute({})).manifest,
+    JSON.parse((await hb.tool.project_mcp_status.execute({})).output).manifest,
     null,
   );
 });
@@ -231,8 +232,8 @@ test("malformed manifests report an error without echoing the file contents", as
   const config = {};
   await hooks.config(config);
   const result = await hooks.tool.project_mcp_status.execute({});
-  assert.ok(JSON.parse(result).error);
-  assert.ok(!result.includes("synthetic-secret"));
+  assert.ok(JSON.parse(result.output).error);
+  assert.ok(!result.output.includes("synthetic-secret"));
   assert.deepEqual(config, {});
 });
 

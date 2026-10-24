@@ -1,5 +1,7 @@
 # Tested behavior
 
+The v0.1.1 branding update changes the package description and the custom status tool's UI title. Its GitHub release and live installation have not yet been exercised. The observations below are from v0.1.0.
+
 Release **v0.1.0** was installed globally from its public GitHub tarball using **OpenCode 1.19.4** on **macOS**, on 2026-10-23. Build/test tooling used **Node.js 24.22.0**. The live model runs used the existing OpenCode provider configuration.
 
 ## Installed-package observations

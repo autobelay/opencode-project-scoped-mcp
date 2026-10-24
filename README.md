@@ -1,17 +1,17 @@
-# OpenCode Project-scoped MCP
+# Local Project MCP
 
-Install one OpenCode plugin. Open a project containing `mcp.json`. OpenCode connects to the MCP servers declared by that project.
+Install once for OpenCode. When you open a project, Local Project MCP automatically finds the nearest `mcp.json` and makes that project's local and remote servers available as native OpenCode MCP connections.
 
-The plugin reads the nearest manifest when OpenCode loads a project and adds its servers to OpenCode's configuration in memory. OpenCode itself runs the local commands, connects to remote servers, manages OAuth, and exposes their tools. There is no MCP bridge, launch wrapper, configuration copy, background watcher, or project-specific OpenCode file to maintain.
+The plugin adds those server definitions to OpenCode's in-memory configuration for that project session. OpenCode runs local commands, connects to remote servers, manages OAuth, and exposes their tools. There is no MCP bridge, launch wrapper, configuration sync, background watcher, or project-specific OpenCode file to maintain.
 
 This release targets OpenCode **1.19.4**. OpenCode's [v2 plugin API](https://opencode.ai/v2/docs/build/plugins) and `mcp.servers` configuration have different shapes and are not supported by this release.
 
 ## Install
 
-Install the GitHub release globally using OpenCode’s native plugin installer:
+Install the v0.1.1 GitHub release globally using OpenCode’s native plugin installer:
 
 ```sh
-opencode plugin --global https://github.com/autobelay/opencode-project-scoped-mcp/releases/download/v0.1.0/autobelay-opencode-project-scoped-mcp-0.1.0.tgz
+opencode plugin --global https://github.com/autobelay/opencode-project-scoped-mcp/releases/download/v0.1.1/autobelay-opencode-project-scoped-mcp-0.1.1.tgz
 ```
 
 OpenCode 1.19.4 uses `opencode plugin <module> -g` for a global install; `opencode plugin add` belongs to the separate v2 CLI. An alternative that uses the [documented global plugin directory](https://docs.opencode.ai/docs/plugins/#from-local-files) is to copy the built, dependency-free `dist/plugin.js` to `~/.config/opencode/plugins/project-scoped-mcp.js`. OpenCode 1.19.4 auto-discovers `.js` and `.ts` files in that directory; it does not auto-discover `.mjs` there.
@@ -23,13 +23,13 @@ cd /path/to/project
 opencode
 ```
 
-Ask: “Use `project_mcp_status` to show this project's MCP connections.” Native MCP tools are available separately under their generated server IDs. No project path is stored in the global installation.
+Ask: “Use `project_mcp_status` to show this project's MCP connections.” Its result appears as “Local Project MCP · Status.” Native MCP tools are available separately under their generated server IDs. OpenCode 1.19.4 displays those tools using their technical IDs; this plugin cannot relabel their UI titles through its supported hooks. No project path is stored in the global installation.
 
 ## Why project-scoped tools?
 
 An MCP server may need a particular checkout's files, branch, design tokens, or credentials. Keeping its declaration with the project lets the configuration travel with that code. A user installs this plugin once, while each project can declare its own servers without copying entries into the user's OpenCode configuration.
 
-This plugin uses OpenCode's [plugin `config` hook](https://docs.opencode.ai/docs/plugins/) before native MCP connections initialize. The project manifest is read at that point. Changes to `mcp.json` take effect when the project is loaded again, such as in a new OpenCode process.
+Local Project MCP uses OpenCode's [plugin `config` hook](https://docs.opencode.ai/docs/plugins/) before native MCP connections initialize. The project manifest is read at that point. Changes to `mcp.json` take effect when the project is loaded again, such as in a new OpenCode process.
 
 ## Example: a design assistant for one application
 
@@ -83,6 +83,6 @@ Manifest `title` and `description` can provide optional model guidance through O
 
 This is an independent open-source OpenCode plugin. See [distribution details](MARKETPLACE.md) and [local exercise notes](TESTING.md). It is not listed in an official OpenCode marketplace.
 
-The installation above was exercised with OpenCode 1.19.4 on macOS. It adds only the plugin entry to global configuration; project MCP declarations are read at runtime. The same command can be used after a machine rebuild.
+Global installation adds only the plugin entry to global configuration; project MCP declarations are read at runtime. The same command can be used after a machine rebuild. See [tested behavior](TESTING.md) for observed installation results.
 
 The package exposes `dist/plugin.js` as its server entrypoint and has no runtime npm dependencies. The code is MIT licensed. [Third-party notices](THIRD_PARTY_NOTICES) accompany the bundled fictional example.

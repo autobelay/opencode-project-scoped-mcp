@@ -2,7 +2,7 @@ import { createHash } from "node:crypto";
 import { dirname } from "node:path";
 import { discover, readManifest, interpolate } from "./manifest.mjs";
 
-export const VERSION = "0.1.0";
+export const VERSION = "0.1.1";
 export function serverId(name, root) {
   return `project_${name.replace(/[^a-zA-Z0-9_]/g, "_").slice(0, 40)}_${createHash(
     "sha256",
